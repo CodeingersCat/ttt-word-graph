@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React  from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import styles from '../styles/Home.module.css'
 import { breakWords } from "../Utils/Words";
@@ -17,7 +17,7 @@ const Chart = ({data}) => {
     }
 
     const chartData = breakWords(data);
-    console.log(chartData)
+    
     return(
         <div className={styles.chartContainer}>
             <ResponsiveContainer width="100%" height="70%"> 
