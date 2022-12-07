@@ -34,9 +34,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Logic explanation
 <br>
-The module <code> Utils/Words.js </code> contains the logic which takes text and returns the frequency data of the top 20 words in the text. 
+The module <code> Utils/Words.js </code> contains the logic which takes text and returns the frequency of the 20 most occurring words in the text. 
 <br>
-The split() function was used to break down the text to first obtain all lines and then get all character sequences separated by whitespaces from each line.
+The split() function is used to first obtain all lines and then get all character sequences separated by whitespaces from each line.
 <br>
 <br>
 
@@ -99,7 +99,7 @@ wordArray.forEach(word => {
 let top20 = Object.keys(dict).sort((a,b) => dict[b]-dict[a]).slice(0,20);
 ```
 
-We then construct the array of data object and pass it to the chart component provided by the library Rechartjs which we are using to have our bar chart.
+We then construct the array of data objects for the bar-chart component provided by the Rechart library.
 <br>
 
 ```js
