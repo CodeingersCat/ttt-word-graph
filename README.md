@@ -1,7 +1,7 @@
 # About the project
 
-<img src="./screenshots/index.png" alt="drawing" width="800"/>
-<img src="./screenshots/graph.png" alt="drawing" width="800"/>
+<img src="https://github.com/CodeingersCat/ttt-word-graph/raw/main/screenshots/index.png" alt="drawing" width="800"/>
+<img src="https://github.com/CodeingersCat/ttt-word-graph/raw/main/screenshots/graph.png" alt="drawing" width="800"/>
 
 <br>
 <br>
