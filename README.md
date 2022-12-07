@@ -1,7 +1,7 @@
 # About the project
 
-<img src="screenshots/index.png" alt="drawing" width="800"/>
-<img src="screenshots/graph.png" alt="drawing" width="800"/>
+<img src="./screenshots/index.png" alt="drawing" width="800"/>
+<img src="./screenshots/graph.png" alt="drawing" width="800"/>
 
 <br>
 <br>
