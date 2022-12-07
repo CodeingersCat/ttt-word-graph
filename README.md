@@ -25,88 +25,78 @@ The module <code> Utils/Words.js </code> contains the logic which takes text and
 <br>
 The split() function was used to break down the text to first obtain all lines and then get all character sequences separated by whitespaces from each line.
 
-<code>
-    
-    data.split("\n").forEach(line => lineArray.push(...line.split(" ")));
-
-</code>
+```js
+data.split("\n").forEach(line => lineArray.push(...line.split(" ")));
+```
 
 <br>
  Each string in <code> lineArray </code> is converted to lowercase and special characters are removed from the ends. 
 
-<code>
+```js
+word = word.toLowerCase();
+let left = 0;
+let right = word.length-1;
 
-    word = word.toLowerCase();
-        let left = 0;
-        let right = word.length-1;
+let lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+let rsymbol = word.charCodeAt(right) < 96 || word.charCodeAt(right) > 123;
 
-        let lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
-        let rsymbol = word.charCodeAt(right) < 96 || word.charCodeAt(right) > 123;
+while(lsymbol){
+    left++;
+    lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+}
 
-        while(lsymbol){
-            left++;
-            lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
-        }
-
-        while(rsymbol){
-            right--;
-            rsymbol = word.charCodeAt(right) < 96 || word.charCodeAt(right) > 123;
-        }
+while(rsymbol){
+    right--;
+    rsymbol = word.charCodeAt(right) < 96 || word.charCodeAt(right) > 123;
+}
         
-        if(left < right) word = word.substring(left, right+1);
-        else word = word.substring(left);
-
-</code>
+if(left < right) word = word.substring(left, right+1);
+else word = word.substring(left);
+```
 
 <br>
 Then the string is checked for special characters from beginning till end and if it doesn't have any, we consider it to be a word and add it to our list.
 
-<code>
-
-    let flag = false;
-    while(left < right){
-        if(lsymbol){ 
-            flag = true;
-            break;
-        }
-        left++;
-        lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+```js
+let flag = false;
+while(left < right){
+    if(lsymbol){ 
+        flag = true;
+        break;
     }
+    left++;
+    lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+}
 
-    if(!flag){
-        wordArray.push(word);
-    }
-
-</code>
+if(!flag){
+    wordArray.push(word);
+}
+```
 
 <br>
 After we have our list of words, we use a dictionary to keep count of each word. After we have our dictionary, we sort it to obtain the frequency of words in descending order and from the result, we take the top 20 words.
 
-<code>
+```js
+let dict = {}
+wordArray.forEach(word => {  
+    dict[word.toLowerCase()] = dict[word.toLowerCase()] >=1 ? dict[word.toLowerCase()]+1 : 1
+});
 
-    let dict = {}
-    wordArray.forEach(word => {  
-        dict[word.toLowerCase()] = dict[word.toLowerCase()] >=1 ? dict[word.toLowerCase()]+1 : 1
-    });
-
-    let top20 = Object.keys(dict).sort((a,b) => dict[b]-dict[a]).slice(0,20);
-
-</code>
+let top20 = Object.keys(dict).sort((a,b) => dict[b]-dict[a]).slice(0,20);
+```
 
 <br>
 We then construct the array of data object and pass it to the chart component provided by the library Rechartjs which we are using to have our bar chart.
 
-<code>
+```js
+top20 = top20.map(word => {
+    const data = {
+        "Word": word,
+        "Count": dict[word]  
+    }
 
-    top20 = top20.map(word => {
-        const data = {
-            "Word": word,
-            "Count": dict[word]  
-        }
-
-        return data;
-    })
+    return data;
+})
     
-    return top20;
-
-</code>
+return top20;
+```
