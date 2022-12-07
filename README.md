@@ -1,34 +1,112 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# About the project
 
-## Getting Started
+<img src="screenshots/index.png" alt="drawing" width="800"/>
+<img src="screenshots/graph.png" alt="drawing" width="800"/>
 
-First, run the development server:
+<br>
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## A web application to fetch text content at [https://www.terriblytinytales.com/test.txt](https://www.terriblytinytales.com/test.txt) and show a histogram of the 20 most occurring words.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br>
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Framework/Libraries used:
+<ul>
+    <li><a href="https://nextjs.org/">NextJs - Web framework</a></li>
+    <li><a href="https://recharts.org/">Rechart - Charts components library</a></li>
+    <li><a href="https://www.axios.com/">Axios - Used to make http requests</a></li>
+</ul>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<br>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Logic explanation
+The module <code> Utils/Words.js </code> contains the logic which takes text and returns the frequency data of the top 20 words in the text. 
+<br>
+<br>
+The split() function was used to break down the text to first obtain all lines and then get all character sequences separated by whitespaces from each line.
 
-## Learn More
+<code>
+    
+    data.split("\n").forEach(line => lineArray.push(...line.split(" ")));
 
-To learn more about Next.js, take a look at the following resources:
+</code>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br>
+ Each string in <code> lineArray </code> is converted to lowercase and special characters are removed from the ends. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<code>
 
-## Deploy on Vercel
+    word = word.toLowerCase();
+        let left = 0;
+        let right = word.length-1;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+        let lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+        let rsymbol = word.charCodeAt(right) < 96 || word.charCodeAt(right) > 123;
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+        while(lsymbol){
+            left++;
+            lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+        }
+
+        while(rsymbol){
+            right--;
+            rsymbol = word.charCodeAt(right) < 96 || word.charCodeAt(right) > 123;
+        }
+        
+        if(left < right) word = word.substring(left, right+1);
+        else word = word.substring(left);
+
+</code>
+
+<br>
+Then the string is checked for special characters from beginning till end and if it doesn't have any, we consider it to be a word and add it to our list.
+
+<code>
+
+    let flag = false;
+    while(left < right){
+        if(lsymbol){ 
+            flag = true;
+            break;
+        }
+        left++;
+        lsymbol = word.charCodeAt(left) < 96 || word.charCodeAt(left) > 123;
+    }
+
+    if(!flag){
+        wordArray.push(word);
+    }
+
+</code>
+
+<br>
+After we have our list of words, we use a dictionary to keep count of each word. After we have our dictionary, we sort it to obtain the frequency of words in descending order and from the result, we take the top 20 words.
+
+<code>
+
+    let dict = {}
+    wordArray.forEach(word => {  
+        dict[word.toLowerCase()] = dict[word.toLowerCase()] >=1 ? dict[word.toLowerCase()]+1 : 1
+    });
+
+    let top20 = Object.keys(dict).sort((a,b) => dict[b]-dict[a]).slice(0,20);
+
+</code>
+
+<br>
+We then construct the array of data object and pass it to the chart component provided by the library Rechartjs which we are using to have our bar chart.
+
+<code>
+
+    top20 = top20.map(word => {
+        const data = {
+            "Word": word,
+            "Count": dict[word]  
+        }
+
+        return data;
+    })
+    
+    return top20;
+
+</code>
