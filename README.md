@@ -1,3 +1,15 @@
+# Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 # About the project
 
 <img src="https://rawcdn.githack.com/CodeingersCat/ttt-word-graph/5e6b2b609f4f7eadb7ef06e049498b3068fc0276/screenshots/index.jpg" alt="index" width="800"/>
