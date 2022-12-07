@@ -1,7 +1,7 @@
 # About the project
 
 <img src="https://rawcdn.githack.com/CodeingersCat/ttt-word-graph/5e6b2b609f4f7eadb7ef06e049498b3068fc0276/screenshots/index.jpg" alt="index" width="800"/>
-<img src="https://rawcdn.githack.com/CodeingersCat/ttt-word-graph/5e6b2b609f4f7eadb7ef06e049498b3068fc0276/screenshots/graph.jpghttps://rawcdn.githack.com/CodeingersCat/ttt-word-graph/5e6b2b609f4f7eadb7ef06e049498b3068fc0276/screenshots/graph.jpg" alt="graph" width="800"/>
+<img src="https://rawcdn.githack.com/CodeingersCat/ttt-word-graph/5e6b2b609f4f7eadb7ef06e049498b3068fc0276/screenshots/graph.jpg" alt="graph" width="800"/>
 
 <br>
 <br>
